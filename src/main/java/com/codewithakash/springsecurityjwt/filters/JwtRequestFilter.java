@@ -37,7 +37,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if(authorizationHeader!=null && authorizationHeader.startsWith("Bearer ")){
             jwt = authorizationHeader.substring(7);
-            username = jwtUtil.getUsernameFromToken(jwt);
+            username = jwtUtil.getUsernameFromToken(jwt);// use to check signature compatability of JWT, it will parse the token and compute signature using secret key
+                                                         //   if computed signature matches with the token signature, will decode the token and get the username else error.
         }
 
         if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
